@@ -196,7 +196,11 @@ class AirCargoProblem(Problem):
         conditions by ignoring the preconditions required for an action to be
         executed.
         """
-        return len([i for i, j in zip(self.goal, node.state) if i == j])
+        count = 0
+        for g in self.goal:
+          if g not in decode_state(node.state, self.state_map).pos:
+            count += 1
+        return count
 
 
 def air_cargo_p1() -> AirCargoProblem:
